@@ -335,6 +335,17 @@ public class DbFunctions {
             System.out.println(e);
         }
     }
+    public void delete_type_by_type_name(Connection conn,String table_name, String name){
+        Statement statement;
+        try{
+            String query=String.format("delete from %s where type='%s'",table_name,name);
+            statement=conn.createStatement();
+            statement.executeUpdate(query);
+            System.out.println("Data Deleted");
+        }catch (Exception e){
+            System.out.println(e);
+        }
+    }
     public void delete_row_by_id(Connection conn,String table_name, int id){
         Statement statement;
         try{
@@ -346,6 +357,36 @@ public class DbFunctions {
             System.out.println(e);
         }
     }
+    public void updateGoods(Connection conn, Goods updatedGoods) {
+        PreparedStatement preparedStatement = null;
+
+        try {
+            String query = "UPDATE goods SET type=?, name=?, description=?, date=?, prize=? WHERE id=?";
+            preparedStatement = conn.prepareStatement(query);
+
+            preparedStatement.setString(1, updatedGoods.getType());
+            preparedStatement.setString(2, updatedGoods.getName());
+            preparedStatement.setString(3, updatedGoods.getDescription());
+            preparedStatement.setString(4, updatedGoods.getDate());
+            preparedStatement.setInt(5, updatedGoods.getPrize());
+            preparedStatement.setLong(6, updatedGoods.getId());
+
+            preparedStatement.executeUpdate();
+
+            System.out.println("Row Updated");
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                    System.out.println(e);
+                }
+            }
+        }
+    }
+
 
     public void delete_table(Connection conn, String table_name){
         Statement statement;
