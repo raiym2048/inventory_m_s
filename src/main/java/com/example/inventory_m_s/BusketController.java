@@ -61,7 +61,7 @@ public class BusketController {
     @FXML
     void initialize() {
         dbFunctions = new DbFunctions();
-        conn = dbFunctions.connect_to_db("testdb", "postgres", "1234");
+        conn = dbFunctions.connect_to_db("testdb", "postgres", "123456");
 
         id.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
         description.setCellValueFactory(cellData -> cellData.getValue().descriptionProperty());
